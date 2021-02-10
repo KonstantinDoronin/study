@@ -153,3 +153,12 @@ ORDER BY price DESC
    WHERE (price - (SELECT MIN(price) FROM book))< 150
 ORDER BY price ASC;
 
+  SELECT author, title, amount
+    FROM book
+   WHERE amount IN (
+         SELECT amount
+           FROM book
+          GROUP by amount
+          WHERE COUNT(amount) = 1);
+
+
