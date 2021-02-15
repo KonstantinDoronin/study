@@ -162,3 +162,22 @@ ORDER BY price ASC;
           WHERE COUNT(amount) = 1);
 
 
+  SELECT author, title, price
+    FROM book
+   WHERE price < ANY (
+         SELECT MIN(price)
+           FROM book
+       GROUP BY author);
+
+  SELECT title, author, amount,
+((SELECT MAX(amount) FROM book) - amount) AS Заказ
+    FROM book
+   WHERE (SELECT MAX(amount) FROM book) > amount);
+
+  SELECT author, title, price, amount,
+         ROUND((price * amount) / SELECT SUM(price*amoun) FROM book) *100, 2) AS income_percent
+    FROM book
+ORDER BY income_percent;
+
+
+
